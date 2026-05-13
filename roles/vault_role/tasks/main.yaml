@@ -1,7 +1,7 @@
 - name: Apply Vault deployment
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f {{ playbook_dir }}/Kubernetes/vault.yml
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/vault.yml"
 
 - name: Wait for Vault to be ready
   environment:
