@@ -6,7 +6,7 @@
 - name: Wait for Elasticsearch to be ready
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl rollout status deployment/elasticsearch --timeout=120s
+  command: kubectl rollout status deployment/elasticsearch --timeout=300s
 
 - name: Apply Filebeat DaemonSet
   environment:
@@ -16,4 +16,4 @@
 - name: Wait for Kibana to be ready
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl rollout status deployment/kibana --timeout=120s
+  command: kubectl rollout status deployment/kibana --timeout=300s
