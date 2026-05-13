@@ -1,8 +1,9 @@
-version: "3.8"
+
 
 services:
   eureka-server:
-    image: mohitgupta02/service-registry:v1
+    image: paragrider1/service-registry
+    build: ./ServiceRegistry
     container_name: eureka-serverCont
     ports:
       - "8761:8761"
@@ -12,7 +13,8 @@ services:
       - eureka.instance.hostname=eureka-server
 
   api-gateway:
-    image: mohitgupta02/api-gateway:v1
+    image: paragrider1/api-gateway
+    build: ./ApiGateway
     container_name: api-gatewayCont
     ports:
       - "8765:8765"
@@ -60,7 +62,8 @@ services:
 
   # Patient Service (Microservice)
   patient-service:
-    image: mohitgupta02/patient-service:v1 # Replace with your actual image
+    image: paragrider1/patient-service
+    build: ./PatientService
     container_name: patient-serviceCont
     ports:
       - "8081:8081"
@@ -84,7 +87,8 @@ services:
 
   # Doctor Service (Microservice)
   doctor-service:
-    image: mohitgupta02/doctor-service:v1 # Replace with your actual image
+    image: paragrider1/doctor-service
+    build: ./DoctorService
     container_name: doctor-serviceCont
     ports:
       - "8082:8082"
@@ -108,7 +112,8 @@ services:
 
   # Appointment Service (Microservice)
   appointment-service:
-    image: mohitgupta02/appointment-service:v1 # Replace with your actual image
+    image: paragrider1/appointment-service
+    build: ./AppointmentService
     container_name: appointment-serviceCont
     ports:
       - "8083:8083"
@@ -138,7 +143,8 @@ services:
 
   # Notification Service (Microservice)
   notification-service:
-    image: mohitgupta02/notification-service:v1 # Replace with your actual image
+    image: paragrider1/notification-service
+    build: ./NotificationService
     container_name: notification-serviceCont
     ports:
       - "8085:8085"

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: doctor
-          image: mohitgupta02/doctor-service:latest
+          image: paragrider1/doctor-service:latest
           ports:
             - containerPort: 8082
           resources:

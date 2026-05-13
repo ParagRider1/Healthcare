@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: notification
-          image: mohitgupta02/notification-service:latest
+          image: paragrider1/notification-service:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8085

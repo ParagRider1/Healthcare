@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: appointment
-          image: mohitgupta02/appointment-service:latest
+          image: paragrider1/appointment-service:latest
           ports:
             - containerPort: 8083
           resources:

@@ -80,6 +80,6 @@ This system covers everything from patient and doctor registration to appointmen
 ## External Links
 
 - **DockerHub (All Services)**  
-  👉 [https://hub.docker.com/u/mohitgupta02](https://hub.docker.com/u/mohitgupta02)
+  👉 [https://hub.docker.com/u/paragrider1](https://hub.docker.com/u/paragrider1)
 
 

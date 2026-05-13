@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: eureka
-          image: mohitgupta02/service-registry:v1
+          image: paragrider1/service-registry
           ports:
             - containerPort: 8761
           env:
