@@ -6,6 +6,8 @@ pipeline {
 
     environment {
         GITHUB_REPO_URL = 'https://github.com/ParagRider1/Healthcare.git'
+        EUREKA_DOCKER_IMAGE = 'paragrider1/service-registry'
+        GATEWAY_DOCKER_IMAGE = 'paragrider1/api-gateway'
         DOCTOR_DOCKER_IMAGE = 'paragrider1/doctor-service'
         PATIENT_DOCKER_IMAGE = 'paragrider1/patient-service'
         APPOINTMENT_DOCKER_IMAGE = 'paragrider1/appointment-service'
@@ -24,6 +26,12 @@ pipeline {
         stage('Build Maven JARs') {
             steps {
                 script {
+                    dir('ServiceRegistry') {
+                        sh 'mvn clean package -DskipTests'
+                    }
+                    dir('ApiGateway') {
+                        sh 'mvn clean package -DskipTests'
+                    }
                     dir('DoctorService') {
                         sh 'mvn clean package -DskipTests'
                     }
@@ -56,6 +64,8 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
+                    def eurekaImage = docker.build("${EUREKA_DOCKER_IMAGE}", './ServiceRegistry/')
+                    def gatewayImage = docker.build("${GATEWAY_DOCKER_IMAGE}", './ApiGateway/')
                     def doctorImage = docker.build("${DOCTOR_DOCKER_IMAGE}", './DoctorService/')
                     def patientImage = docker.build("${PATIENT_DOCKER_IMAGE}", './PatientService/')
                     def appointmentImage = docker.build("${APPOINTMENT_DOCKER_IMAGE}", './AppointmentService/')
@@ -68,6 +78,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'dockerhub-credentials') {
+                        docker.image("${EUREKA_DOCKER_IMAGE}").push()
+                        docker.image("${GATEWAY_DOCKER_IMAGE}").push()
                         docker.image("${DOCTOR_DOCKER_IMAGE}").push()
                         docker.image("${PATIENT_DOCKER_IMAGE}").push()
                         docker.image("${APPOINTMENT_DOCKER_IMAGE}").push()
