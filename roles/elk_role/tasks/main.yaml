@@ -1,0 +1,19 @@
+- name: Apply Elasticsearch
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl apply -f {{ playbook_dir }}/Kubernetes/elk.yml
+
+- name: Wait for Elasticsearch to be ready
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl rollout status deployment/elasticsearch --timeout=120s
+
+- name: Apply Filebeat DaemonSet
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl apply -f {{ playbook_dir }}/Kubernetes/filebeat.yml
+
+- name: Wait for Kibana to be ready
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl rollout status deployment/kibana --timeout=120s

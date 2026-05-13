@@ -1,0 +1,28 @@
+- name: Apply Vault deployment
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl apply -f {{ playbook_dir }}/Kubernetes/vault.yml
+
+- name: Wait for Vault to be ready
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl rollout status deployment/vault --timeout=60s
+
+- name: Configure Vault secrets for healthcare app
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+    VAULT_ADDR: "http://localhost:30820"
+    VAULT_TOKEN: "root"
+  shell: |
+    kubectl exec -it $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
+      vault kv put secret/healthcare/mysql \
+        username=root \
+        password=admin \
+        url=jdbc:mysql://mysql:3306 && \
+    kubectl exec -it $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
+      vault kv put secret/healthcare/rabbitmq \
+        username=guest \
+        password=guest \
+        host=rabbitmq \
+        port=5672
+  ignore_errors: true

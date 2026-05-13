@@ -1,0 +1,6 @@
+- name: Apply patient service
+  environment:
+    KUBECONFIG: "{{kubeconfig_path}}"
+  #    KUBECONFIG: /home/mohitgupta0205/.kube/config
+  command: kubectl apply -f {{ playbook_dir }}/Kubernetes/patient.yml
+# testing upgrade

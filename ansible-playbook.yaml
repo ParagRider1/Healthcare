@@ -1,0 +1,17 @@
+---
+- name: Apply Kubernetes manifests using Ansible roles
+  hosts: localhost
+  remote_user: parag-piprewar
+  become: false
+  vars:
+    kubeconfig_path: /home/parag-piprewar/.kube/config
+
+  roles:
+    - role: envSetup_role
+    - role: patient_role
+    - role: doctor_role
+    - role: appointment_role
+    - role: notification_role
+    - role: monitoring_role
+    - role: elk_role
+    - role: vault_role
