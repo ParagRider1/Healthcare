@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctorservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: doctorservice
+  template:
+    metadata:
+      labels:
+        app: doctorservice
+    spec:
+      containers:
+        - name: doctor
+          image: mohitgupta02/doctor-service:latest
+          ports:
+            - containerPort: 8082
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: doctorservice
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/doctordb
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: doctorservice
+            - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+              value: "true"
+            - name: eureka.client.service-url.defaultZone
+              value: http://eureka:8761/eureka
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: doctorservice  # Change this to DOCTORSERVICE
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8082"
+
+spec:
+  type: ClusterIP
+  selector:
+    app: doctorservice
+  ports:
+    - port: 8082
+      targetPort: 8082
+
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: doctorservice-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: doctorservice
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

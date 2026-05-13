@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appointment
+  template:
+    metadata:
+      labels:
+        app: appointment
+    spec:
+      containers:
+        - name: appointment
+          image: mohitgupta02/appointment-service:latest
+          ports:
+            - containerPort: 8083
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: appointmentservice
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/appointmentdb
+            - name: eureka.client.service-url.defaultZone
+              value: http://eureka:8761/eureka
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
+#              value: rabbitmq-854fff949c-njjrp
+            - name: SPRING_RABBITMQ_PORT
+              value: "5672"
+            - name: SPRING_RABBITMQ_USERNAME
+              value: guest
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: guest
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8083"
+spec:
+  type: ClusterIP
+  selector:
+    app: appointment
+  ports:
+    - port: 8083
+      targetPort: 8083
+
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: appointment-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: appointment
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
