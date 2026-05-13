@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-scripts
+data:
+  init-all-dbs.sql: |
+    CREATE
+    DATABASE IF NOT EXISTS patientdb;
+      CREATE
+    DATABASE IF NOT EXISTS doctordb;
+      CREATE
+    DATABASE IF NOT EXISTS appointmentdb;
