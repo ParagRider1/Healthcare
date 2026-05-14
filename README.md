@@ -47,7 +47,8 @@ This system covers everything from patient and doctor registration to appointmen
 - **NotificationService** listens to `appointment.notification.queue`.
 - Messages are routed via `appointment.exchange` with `appointment.email` routing key.
 - Upon receiving, an email is sent with JavaMailSender configured via OAuth2.
-- ![image](https://github.com/user-attachments/assets/c1282e44-330f-4746-a352-7ccf89afdcd4)
+- <img width="1786" height="1044" alt="Screenshot from 2026-05-14 19-14-12" src="https://github.com/user-attachments/assets/b6b88fe3-e58c-4c36-8ce7-cafc2363efe9" />
+
 
 
 ---
@@ -59,7 +60,8 @@ This system covers everything from patient and doctor registration to appointmen
 - `Ingress` routes for URL-based routing
 - `Secrets` and `ConfigMaps` for secure configuration
 - `RabbitMQ`, `MySQL`, and monitoring tools run in dedicated pods
-- ![image](https://github.com/user-attachments/assets/cfb623c0-3722-4f08-9efd-5bd5f5bd69f9)
+- <img width="1797" height="875" alt="kubernetes services image " src="https://github.com/user-attachments/assets/ffdfd918-13fc-4f5b-9eb3-1de94b22d2f0" />
+
 
 
 ---
@@ -69,13 +71,28 @@ This system covers everything from patient and doctor registration to appointmen
 ### 🔍 Prometheus + Grafana
 - Scrapes actuator metrics from each service
 - Tracks heap memory, thread count, HTTP response times, etc.
-- ![image](https://github.com/user-attachments/assets/26633292-bc28-472c-a0e6-2cd5e675b15d)
+- <img width="1752" height="898" alt="grafa2" src="https://github.com/user-attachments/assets/b1cc3ef1-9e8e-4969-9011-017db851e77d" />
 
-- ![image](https://github.com/user-attachments/assets/480fd087-0d48-4765-b5e2-a6786d4f417a)
 
-![image](https://github.com/user-attachments/assets/e62809c1-1461-49a9-8ca1-5acc04d35ca5)
+- <img width="1725" height="912" alt="grafa" src="https://github.com/user-attachments/assets/8ce9078a-94ed-4275-8cb6-dab07693080c" />
+
+- <img width="1786" height="1044" alt="Screenshot from 2026-05-14 19-58-56" src="https://github.com/user-attachments/assets/6f173d36-d4ea-473f-a179-7247d0dc4fd4" />
+
+
+##Eureka
+<img width="1786" height="1044" alt="Screenshot from 2026-05-14 20-07-00" src="https://github.com/user-attachments/assets/166b0def-0cc8-4108-a89e-c7fb17716255" />
+
+
+
+
+##Jenkins Pipeline
+<img width="1786" height="1044" alt="Screenshot from 2026-05-14 20-08-57" src="https://github.com/user-attachments/assets/ae7257ab-722c-479f-9d94-01a633890623" />
 
 ---
+
+
+
+
 
 ## External Links
 
