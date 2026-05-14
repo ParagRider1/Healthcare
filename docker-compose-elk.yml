@@ -84,7 +84,6 @@ services:
 
 networks:
   microservices:
-    external: true
 
 volumes:
   elasticsearch-data:

@@ -1,4 +1,4 @@
 - name: Apply doctor service
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/doctor.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/doctor.yml" --validate=false

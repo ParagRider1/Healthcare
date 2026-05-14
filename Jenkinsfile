@@ -12,6 +12,7 @@ pipeline {
         PATIENT_DOCKER_IMAGE = 'paragrider1/patient-service'
         APPOINTMENT_DOCKER_IMAGE = 'paragrider1/appointment-service'
         NOTIFICATION_DOCKER_IMAGE = 'paragrider1/notification-service'
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
 
     stages {

@@ -1,29 +1,29 @@
 - name: Apply pvc
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/pvc.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/pvc.yml" --validate=false
 
 - name: Apply mysql config
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/mysql-config.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/mysql-config.yml" --validate=false
 
 - name: Apply mysql
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/mysql.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/mysql.yml" --validate=false
 
 - name: Apply eureka
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/eureka.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/eureka.yml" --validate=false
 
 - name: Apply gateway
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/gateway.yml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/gateway.yml" --validate=false
 
 - name: Apply ingress
   environment:
     KUBECONFIG: "{{ kubeconfig_path }}"
-  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/healthcare-ingress.yaml"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/healthcare-ingress.yaml" --validate=false
