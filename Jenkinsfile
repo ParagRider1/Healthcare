@@ -75,7 +75,7 @@ pipeline {
             }
         }
 
- /*       stage('Push to DockerHub') {
+        stage('Push to DockerHub') {
             steps {
                 script {
                     docker.withRegistry('', 'dockerhub-credentials') {
@@ -90,7 +90,7 @@ pipeline {
             }
         }
 
-*/
+
         stage('Apply Kubernetes Manifests with Ansible') {
             steps {
                 script {
