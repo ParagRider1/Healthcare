@@ -27,6 +27,10 @@ spec:
               value: appointmentservice
             - name: SPRING_DATASOURCE_URL
               value: jdbc:mysql://mysql:3306/appointmentdb
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: appointmentservice
+            - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+              value: "true"
             - name: eureka.client.service-url.defaultZone
               value: http://eureka:8761/eureka
             - name: SPRING_RABBITMQ_HOST
