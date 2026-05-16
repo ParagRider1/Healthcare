@@ -13,8 +13,10 @@ public class AppointmentMessage {
     private Long appointmentId;
     private Long patientId;
     private Long doctorId;
+    private String appointmentDate;
     private String status;
-    private String patientEmail;  // new
+
+    private String patientEmail;
     private String doctorEmail;
     private String doctorName;
     private String patientName;

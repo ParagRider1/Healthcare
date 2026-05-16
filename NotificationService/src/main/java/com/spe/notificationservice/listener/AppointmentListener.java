@@ -24,15 +24,16 @@ public class AppointmentListener {
         String body;
         String to = appointment.getPatientEmail();
 
+        String dateStr = (appointment.getAppointmentDate() != null) ? appointment.getAppointmentDate().toString().replace("T", " at ") : "a pending time";
+
         if (status == AppointmentStatus.SCHEDULED) {
             subject = "Appointment Scheduled";
-            body = "Hi !" + appointment.getPatientName() + ", Your appointment with doctor :- " + appointment.getDoctorName() +
-                    " , is scheduled successfully ! ";
-//                    + appointment.getAppointmentDate()
+            body = "Hi " + appointment.getPatientName() + ",\n\nYour appointment with Dr. " + appointment.getDoctorName() +
+                    " is scheduled successfully for " + dateStr + ".\n\nThank you for choosing MediConnect!";
         } else {
             subject = "Appointment Cancelled";
-            body ="Hi !" + appointment.getPatientName() +", Your appointment with doctor :- " + appointment.getDoctorName() +
-                    " has been cancelled.";
+            body ="Hi " + appointment.getPatientName() + ",\n\nYour appointment with Dr. " + appointment.getDoctorName() +
+                    " scheduled for " + dateStr + " has been cancelled.\n\nWe apologize for the inconvenience.";
         }
         emailService.sendEmail(to, subject, body);
 
@@ -40,16 +41,13 @@ public class AppointmentListener {
         to = appointment.getDoctorEmail();
 
         if (status == AppointmentStatus.SCHEDULED) {
-            subject = "Appointment Scheduled";
-            body = "Hi !" + appointment.getDoctorName() +", Your appointment with patient :- " + appointment.getPatientName() +
-                    " is scheduled successfully ! "
-//                    + appointment.getAppointmentDate()
-            ;
-
+            subject = "New Appointment Scheduled";
+            body = "Hi Dr. " + appointment.getDoctorName() + ",\n\nA new appointment with patient " + appointment.getPatientName() +
+                    " is scheduled successfully for " + dateStr + ".\n\nPlease check your dashboard for details.";
         } else {
             subject = "Appointment Cancelled";
-            body = "Hi !" + appointment.getDoctorName() + "Your appointment with patient :-" + appointment.getPatientName() +
-                    " has been cancelled.";
+            body = "Hi Dr. " + appointment.getDoctorName() + ",\n\nYour appointment with patient " + appointment.getPatientName() +
+                    " scheduled for " + dateStr + " has been cancelled.";
         }
         emailService.sendEmail(to, subject, body);
 

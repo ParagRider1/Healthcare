@@ -1,0 +1,10 @@
+---
+- name: Apply Frontend deployment
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl apply -f "{{ playbook_dir }}/Kubernetes/frontend.yml" --validate=false
+
+- name: Wait for Frontend to be ready
+  environment:
+    KUBECONFIG: "{{ kubeconfig_path }}"
+  command: kubectl rollout status deployment/frontend --timeout=60s

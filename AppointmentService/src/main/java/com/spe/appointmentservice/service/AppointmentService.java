@@ -46,7 +46,7 @@ public class AppointmentService {
         Appointment appointment = Appointment.builder()
                 .doctorId(appointmentDTO.getDoctorId())
                 .patientId(appointmentDTO.getPatientId())
-//                .appointmentDate(appointmentDTO.getAppointmentDate())
+                .appointmentDate(appointmentDTO.getAppointmentDate())
                 .status(AppointmentStatus.SCHEDULED)
                 .build();
 
@@ -56,7 +56,7 @@ public class AppointmentService {
                 savedAppointment.getId(),
                 savedAppointment.getPatientId(),
                 savedAppointment.getDoctorId(),
-//                savedAppointment.getAppointmentDate(),
+                savedAppointment.getAppointmentDate() != null ? savedAppointment.getAppointmentDate().toString() : null,
                 savedAppointment.getStatus().name(),
                 patient.getEmail(),
                 doctor.getEmail(),
@@ -96,7 +96,7 @@ public class AppointmentService {
                 appointment.getId(),
                 appointment.getPatientId(),
                 appointment.getDoctorId(),
-//          appointment.getAppointmentDate(), // if used
+                appointment.getAppointmentDate() != null ? appointment.getAppointmentDate().toString() : null,
                 AppointmentStatus.CANCELED.name(),
                 patient.getEmail(),
                 doctor.getEmail(),

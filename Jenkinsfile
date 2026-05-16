@@ -12,6 +12,7 @@ pipeline {
         PATIENT_DOCKER_IMAGE = 'paragrider1/patient-service'
         APPOINTMENT_DOCKER_IMAGE = 'paragrider1/appointment-service'
         NOTIFICATION_DOCKER_IMAGE = 'paragrider1/notification-service'
+        FRONTEND_DOCKER_IMAGE = 'paragrider1/healthcare-frontend'
         KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
 
@@ -71,6 +72,7 @@ pipeline {
                     def patientImage = docker.build("${PATIENT_DOCKER_IMAGE}", './PatientService/')
                     def appointmentImage = docker.build("${APPOINTMENT_DOCKER_IMAGE}", './AppointmentService/')
                     def notificationImage = docker.build("${NOTIFICATION_DOCKER_IMAGE}", './NotificationService/')
+                    def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}", './frontend/')
                 }
             }
         }
@@ -85,6 +87,7 @@ pipeline {
                         docker.image("${PATIENT_DOCKER_IMAGE}").push()
                         docker.image("${APPOINTMENT_DOCKER_IMAGE}").push()
                         docker.image("${NOTIFICATION_DOCKER_IMAGE}").push()
+                        docker.image("${FRONTEND_DOCKER_IMAGE}").push()
                     }
                 }
             }

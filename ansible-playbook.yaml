@@ -15,3 +15,5 @@
     - role: monitoring_role
     - role: elk_role
     - role: vault_role
+    - role: frontend_role
+
