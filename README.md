@@ -16,11 +16,13 @@ This system covers everything from patient and doctor registration to appointmen
 - **Doctor Service** – Manages doctor data and availability.
 - **Appointment Service** – Coordinates appointments between doctors and patients.
 - **Notification Service** – Sends out confirmation emails using Gmail and OAuth2.
+- **Frontend Dashboard** – Next.js React UI for managing the entire hospital system.
 
 ---
 
 ## Tech Stack
 
+- **Frontend**: Next.js, React, Vanilla CSS (Glassmorphism UI)
 - **Backend**: Java 17, Spring Boot, Spring Cloud
 - **Containerization**: Docker, Docker Compose
 - **Orchestration**: Kubernetes with Deployments, Services, Ingress, ConfigMaps
