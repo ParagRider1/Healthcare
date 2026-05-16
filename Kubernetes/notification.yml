@@ -37,7 +37,6 @@ spec:
             - name: eureka.client.service-url.defaultZone
               value: http://eureka:8761/eureka
 
-
 ---
 apiVersion: v1
 kind: Service
@@ -54,9 +53,7 @@ spec:
     - port: 8085
       targetPort: 8085
 
-
 ---
-
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
