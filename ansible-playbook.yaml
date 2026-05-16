@@ -4,7 +4,7 @@
   remote_user: parag-piprewar
   become: false
   vars:
-    kubeconfig_path: /home/parag-piprewar/.kube/config
+    kubeconfig_path: "{{ lookup('env', 'KUBECONFIG') | default('/home/parag-piprewar/.kube/config', true) }}"
 
   roles:
     - role: envSetup_role
