@@ -73,10 +73,13 @@ This system covers everything from patient and doctor registration to appointmen
 ### 🔍 Prometheus + Grafana
 - Scrapes actuator metrics from each service
 - Tracks heap memory, thread count, HTTP response times, etc.
-- <img width="1752" height="898" alt="grafa2" src="https://github.com/user-attachments/assets/b1cc3ef1-9e8e-4969-9011-017db851e77d" />
+
 
 
 - <img width="1725" height="912" alt="grafa" src="https://github.com/user-attachments/assets/8ce9078a-94ed-4275-8cb6-dab07693080c" />
+<img width="1806" height="1043" alt="image" src="https://github.com/user-attachments/assets/4cefcf85-1a13-4185-82ba-43603753d12a" />
+
+
 
 - <img width="1786" height="1044" alt="Screenshot from 2026-05-14 19-58-56" src="https://github.com/user-attachments/assets/6f173d36-d4ea-473f-a179-7247d0dc4fd4" />
 
