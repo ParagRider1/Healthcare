@@ -32,6 +32,7 @@ This system covers everything from patient and doctor registration to appointmen
 - **Broker**: RabbitMQ for asynchronous messaging
 
 ---
+##
 
 ## CI/CD Workflow
 

@@ -12,6 +12,7 @@ services:
     environment:
       - eureka.instance.hostname=eureka-server
 
+
   api-gateway:
     image: paragrider1/api-gateway
     build: ./ApiGateway
@@ -25,6 +26,8 @@ services:
     environment:
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
 
+
+#
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmqCont
