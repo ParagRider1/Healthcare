@@ -17,4 +17,8 @@ COPY --from=builder /app/.next/static ./.next/static
 EXPOSE 3001
 ENV PORT=3001
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD echo "==================================================================" && \
+    echo "🚀 HEALTHCARE FRONTEND ACTIVE" && \
+    echo "👉 Open in your laptop's browser at: http://192.168.49.2:30001" && \
+    echo "==================================================================" && \
+    node server.js
