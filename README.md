@@ -106,3 +106,33 @@ This system covers everything from patient and doctor registration to appointmen
   👉 [https://hub.docker.com/u/paragrider1](https://hub.docker.com/u/paragrider1)
 
 
+## Operations Guide
+
+### 1. Running with Docker Compose (Local/Quick Start)
+This is the easiest way to start the backend services without Kubernetes.
+- **Start Core Services**: `docker compose up -d`
+- **Start ELK Stack + Vault**: `docker compose -f docker-compose.yml -f docker-compose-elk.yml up -d`
+- **Check Status**: `docker compose ps`
+- **View Stats (CPU/Memory)**: `docker stats`
+- **View Logs**: `docker compose logs -f`
+- **Stop All Services**: `docker compose down`
+
+### 2. Running with Kubernetes (Minikube + Ansible)
+This is the production-grade deployment for the full DevOps demonstration.
+- **Start Minikube**: `minikube start --memory=4096 --cpus=3`
+- **Enable Addons**: `minikube addons enable ingress && minikube addons enable metrics-server`
+- **Deploy via Ansible**: `ansible-playbook -i inventory.ini ansible-playbook.yaml`
+- **Check Pods Status**: `kubectl get pods -w`
+- **Check Resource Stats**: `kubectl top pods`
+- **View Pod Logs**: `kubectl logs -f deployment/<service-name>`
+- **Stop Specific Service**: `kubectl scale deployment <service-name> --replicas=0`
+
+### 3. Accessing the Application
+Once the services are up and running, you can access them via the following endpoints:
+- **Frontend Dashboard (Next.js)**: `http://localhost:3001` (or `http://$(minikube ip):30001` in K8s)
+- **API Gateway (Backend Entry)**: `http://localhost:8765` (or `http://$(minikube ip):30065` in K8s)
+- **Eureka Service Registry**: `http://localhost:8761`
+- **Jenkins CI/CD Pipeline**: `http://localhost:8080`
+- **Grafana Metrics Dashboard**: `http://localhost:3000` (credentials: `admin`/`Parag@1234`)
+- **Kibana Logs Dashboard**: `http://localhost:5601`
+- **RabbitMQ Console**: `http://localhost:15672` (credentials: `guest`/`guest`)
