@@ -136,3 +136,15 @@ Once the services are up and running, you can access them via the following endp
 - **Grafana Metrics Dashboard**: `http://localhost:3000` (credentials: `admin`/`Parag@1234`)
 - **Kibana Logs Dashboard**: `http://localhost:5601`
 - **RabbitMQ Console**: `http://localhost:15672` (credentials: `guest`/`guest`)
+
+
+
+for minikube start
+
+# See all services
+minikube service list 
+
+# Check logs of all services
+minikube service list --url
+
+# Find which service you want (copy the URL)
