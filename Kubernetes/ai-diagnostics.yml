@@ -15,7 +15,7 @@ spec:
       containers:
         - name: ai-diagnostics
           image: paragrider1/ai-diagnostics-service:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8086
           resources:

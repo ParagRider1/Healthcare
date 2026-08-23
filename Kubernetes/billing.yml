@@ -15,7 +15,7 @@ spec:
       containers:
         - name: billing
           image: paragrider1/billing-service:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8087
           resources:

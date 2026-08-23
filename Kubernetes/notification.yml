@@ -15,7 +15,7 @@ spec:
       containers:
         - name: notification
           image: paragrider1/notification-service:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8085
           resources:
