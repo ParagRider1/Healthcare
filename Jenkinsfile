@@ -84,6 +84,7 @@ pipeline {
             }
         }
 
+/*
         stage('Push to DockerHub') {
             steps {
                 script {
@@ -101,6 +102,7 @@ pipeline {
                 }
             }
         }
+*/
 
 
         stage('Apply Kubernetes Manifests with Ansible') {

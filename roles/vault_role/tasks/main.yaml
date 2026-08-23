@@ -14,12 +14,12 @@
     VAULT_ADDR: "http://localhost:30820"
     VAULT_TOKEN: "root"
   shell: |
-    kubectl exec -it $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
+    kubectl exec -i $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
       vault kv put secret/healthcare/mysql \
         username=root \
         password=admin \
         url=jdbc:mysql://mysql:3306 && \
-    kubectl exec -it $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
+    kubectl exec -i $(kubectl get pods -l app=vault -o jsonpath='{.items[0].metadata.name}') -- \
       vault kv put secret/healthcare/rabbitmq \
         username=guest \
         password=guest \
