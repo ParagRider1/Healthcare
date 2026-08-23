@@ -35,15 +35,13 @@ spec:
               value: http://eureka:8761/eureka
             - name: SPRING_RABBITMQ_HOST
               value: rabbitmq
-#              value: rabbitmq-854fff949c-njjrp
+            #              value: rabbitmq-854fff949c-njjrp
             - name: SPRING_RABBITMQ_PORT
               value: "5672"
             - name: SPRING_RABBITMQ_USERNAME
               value: guest
             - name: SPRING_RABBITMQ_PASSWORD
               value: guest
-
-
 
 ---
 apiVersion: v1
@@ -62,24 +60,22 @@ spec:
     - port: 8083
       targetPort: 8083
 
-
----
-
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: appointment-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: appointment
-  minReplicas: 1
-  maxReplicas: 2
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 90
+# ---
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: appointment-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: appointment
+#   minReplicas: 1
+#   maxReplicas: 2
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: 90
