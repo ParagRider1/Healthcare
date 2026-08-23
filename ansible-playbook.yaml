@@ -13,7 +13,7 @@
     - role: appointment_role
     - role: notification_role
     - role: monitoring_role
-    - role: elk_role
+    # - role: elk_role # Commented out to save memory (removes ELK and Filebeat)
     - role: vault_role
     - role: billing_role
     - role: ai_diagnostics_role
