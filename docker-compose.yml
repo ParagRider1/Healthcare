@@ -231,6 +231,44 @@ services:
       appointment-service:
         condition: service_healthy
 
+  # Billing Service (Java)
+  billing-service:
+    image: paragrider1/billing-service
+    build: ./BillingService
+    container_name: billing-serviceCont
+    ports:
+      - "8087:8087"
+    networks:
+      - microservices
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/billingdb?createDatabaseIfNotExist=true&useSSL=false
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
+
+  # AI Diagnostics Service (Python)
+  ai-diagnostics-service:
+    image: paragrider1/ai-diagnostics-service
+    build: ./AiDiagnosticsService
+    container_name: ai-diagnostics-serviceCont
+    ports:
+      - "8086:8086"
+    networks:
+      - microservices
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    environment:
+      - EUREKA_SERVER=http://eureka-server:8761/eureka
+
 networks:
   microservices:
     driver: bridge

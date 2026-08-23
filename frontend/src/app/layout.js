@@ -10,6 +10,8 @@ function Sidebar() {
     { href: '/patients', icon: '👥', label: 'Patients' },
     { href: '/doctors', icon: '🩺', label: 'Doctors' },
     { href: '/appointments', icon: '📅', label: 'Appointments' },
+    { href: '/diagnostics', icon: '🧠', label: 'AI Diagnostics' },
+    { href: '/billing', icon: '💳', label: 'Billing & Invoices' },
   ];
   return (
     <aside className="sidebar">
