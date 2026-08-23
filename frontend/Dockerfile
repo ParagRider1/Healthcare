@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG GATEWAY_URL=http://api-gateway:8765
+ENV GATEWAY_URL=$GATEWAY_URL
 RUN npm run build
 
 # Production Stage

@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const GATEWAY = process.env.GATEWAY_URL || 'http://192.168.49.2:30065';
+const GATEWAY = process.env.GATEWAY_URL || 'http://api-gateway:8765';
 
 const nextConfig = {
   async rewrites() {

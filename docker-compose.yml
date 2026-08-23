@@ -11,6 +11,7 @@ services:
       - microservices
     environment:
       - eureka.instance.hostname=eureka-server
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
 
 
   api-gateway:
@@ -25,6 +26,7 @@ services:
       - eureka-server
     environment:
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
 
 
 #
@@ -49,6 +51,7 @@ services:
       # Root password for MySQL
     volumes:
       - ./init-db:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -58,10 +61,6 @@ services:
   #      interval: 10s
   #      timeout: 5s
   #      retries: 5
-  #    volumes:
-  #      - mysql-data:/var/lib/mysql
-  #      - # Persist MySQL data
-  #      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   # Patient Service (Microservice)
   patient-service:
@@ -84,6 +83,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/patientdb
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
 
   #    environment:
   #      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka  # Point to Eureka server
@@ -109,6 +109,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/doctordb
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
 
   #    environment:
   #      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka  # Point to Eureka server
@@ -135,6 +136,7 @@ services:
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
       - SPRING_RABBITMQ_HOST=rabbitmq # Use the service name 'rabbitmq' as the hostname
       - SPRING_RABBITMQ_PORT=5672
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
   #      mysql:
   #        condition: service_healthy
   #      - rabbitmq
@@ -160,8 +162,24 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq # Use the service name 'rabbitmq' as the hostname
       - SPRING_RABBITMQ_PORT=5672
       - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka
+      - JAVA_TOOL_OPTIONS=-Xms128m -Xmx256m -XX:+UseSerialGC
   #    environment:
 #      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka  # Point to Eureka server
+
+  # Frontend Service (Next.js)
+  frontend:
+    image: paragrider1/healthcare-frontend
+    build:
+      context: ./frontend
+      args:
+        - GATEWAY_URL=http://api-gateway:8765
+    container_name: frontendCont
+    ports:
+      - "3001:3001"
+    networks:
+      - microservices
+    depends_on:
+      - api-gateway
 
 networks:
   microservices:
