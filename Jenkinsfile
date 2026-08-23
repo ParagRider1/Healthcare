@@ -12,6 +12,8 @@ pipeline {
         PATIENT_DOCKER_IMAGE = 'paragrider1/patient-service'
         APPOINTMENT_DOCKER_IMAGE = 'paragrider1/appointment-service'
         NOTIFICATION_DOCKER_IMAGE = 'paragrider1/notification-service'
+        BILLING_DOCKER_IMAGE = 'paragrider1/billing-service'
+        AI_DIAGNOSTICS_DOCKER_IMAGE = 'paragrider1/ai-diagnostics-service'
         FRONTEND_DOCKER_IMAGE = 'paragrider1/healthcare-frontend'
         KUBECONFIG = '/var/lib/jenkins/.kube/config'
     }
@@ -46,6 +48,9 @@ pipeline {
                     dir('NotificationService') {
                         sh 'mvn clean package -DskipTests'
                     }
+                    dir('BillingService') {
+                        sh 'mvn clean package -DskipTests'
+                    }
                 }
             }
         }
@@ -72,6 +77,8 @@ pipeline {
                     def patientImage = docker.build("${PATIENT_DOCKER_IMAGE}", './PatientService/')
                     def appointmentImage = docker.build("${APPOINTMENT_DOCKER_IMAGE}", './AppointmentService/')
                     def notificationImage = docker.build("${NOTIFICATION_DOCKER_IMAGE}", './NotificationService/')
+                    def billingImage = docker.build("${BILLING_DOCKER_IMAGE}", './BillingService/')
+                    def aiDiagnosticsImage = docker.build("${AI_DIAGNOSTICS_DOCKER_IMAGE}", './AiDiagnosticsService/')
                     def frontendImage = docker.build("${FRONTEND_DOCKER_IMAGE}", './frontend/')
                 }
             }
@@ -87,6 +94,8 @@ pipeline {
                         docker.image("${PATIENT_DOCKER_IMAGE}").push()
                         docker.image("${APPOINTMENT_DOCKER_IMAGE}").push()
                         docker.image("${NOTIFICATION_DOCKER_IMAGE}").push()
+                        docker.image("${BILLING_DOCKER_IMAGE}").push()
+                        docker.image("${AI_DIAGNOSTICS_DOCKER_IMAGE}").push()
                         docker.image("${FRONTEND_DOCKER_IMAGE}").push()
                     }
                 }

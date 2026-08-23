@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing
+  template:
+    metadata:
+      labels:
+        app: billing
+    spec:
+      containers:
+        - name: billing
+          image: paragrider1/billing-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8087
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+          env:
+            - name: SPRING_APPLICATION_NAME
+              value: billingservice
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/billingdb?createDatabaseIfNotExist=true&useSSL=false
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
+            - name: SPRING_RABBITMQ_PORT
+              value: "5672"
+            - name: EUREKA_INSTANCE_HOSTNAME
+              value: billingservice
+            - name: EUREKA_INSTANCE_PREFER_IP_ADDRESS
+              value: "true"
+            - name: eureka.client.service-url.defaultZone
+              value: http://eureka:8761/eureka
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/actuator/prometheus"
+    prometheus.io/port: "8087"
+spec:
+  selector:
+    app: billing
+  ports:
+    - port: 8087
+      targetPort: 8087
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: billing-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: billing
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 90

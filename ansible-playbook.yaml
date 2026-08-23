@@ -15,5 +15,6 @@
     - role: monitoring_role
     - role: elk_role
     - role: vault_role
+    - role: billing_role
+    - role: ai_diagnostics_role
     - role: frontend_role
-

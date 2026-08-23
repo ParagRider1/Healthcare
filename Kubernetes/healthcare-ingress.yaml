@@ -50,3 +50,19 @@ spec:
                 name: gateway
                 port:
                   number: 8765
+
+          - path: /billing(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: billing
+                port:
+                  number: 8087
+
+          - path: /ai-diagnostics(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ai-diagnostics
+                port:
+                  number: 8086
